@@ -1,0 +1,7 @@
+.. include:: ../README.rst
+    :start-after: .. _start-model:
+    :end-before: .. _end-model:
+
+.. include:: ../README.rst
+    :start-after: .. _start-sub:
+    :end-before: .. _end-sub:

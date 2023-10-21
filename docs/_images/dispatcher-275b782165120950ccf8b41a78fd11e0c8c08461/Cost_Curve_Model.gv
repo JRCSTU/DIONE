@@ -1,0 +1,34 @@
+digraph dmap {
+	graph [bgcolor=transparent nslimit=1 nslimit1=1]
+	node [style=filled]
+	label = "Cost Curve Model"
+	0 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2" href="./Cost_Curve_Model/calculate_reduction_tech_cost_pareto.html">calculate_reduction_tech_cost_pareto</TD></TR></TABLE>> color="#eed867" fillcolor="#eed867" id=0 ordering=in shape=box tooltip="\"Finds the best technology combinations that maximize the reduction     minimizing the implementation cost.\""]
+	1 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">reduction_tech_cost</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=1 shape=box style="rounded,filled" tooltip="\"List of technology reduction and implementation cost for each         powertrain, segment, and registration_year year.\""]
+	2 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">incompatibility_tech</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=2 shape=box style="rounded,filled" tooltip="\"Matrix of incompatible technologies.\""]
+	3 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">include_exclude_tech</TD></TR><TR><TD align="RIGHT" border="1">default</TD><TD align="LEFT" border="1">None</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=3 shape=box style="rounded,filled" tooltip="\"List of technologies to be included (forced) or excluded from the         optimization process defined for each powertrain, segment, and         registration_year year.\""]
+	4 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">executor</TD></TR><TR><TD align="RIGHT" border="1">default</TD><TD align="LEFT" border="1">&lt;dione.utils.DummyExecutor object at 0x1379dd180&gt;</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=4 shape=box style="rounded,filled" tooltip="\"Parallel executor.\""]
+	5 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">reduction_tech_cost_pareto_raw</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=5 shape=box style="rounded,filled" tooltip="\"Best technology combinations that maximize the reduction minimizing         the implementation cost.\""]
+	6 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2" href="./Cost_Curve_Model/correct_reduction_tech_cost_pareto.html">correct_reduction_tech_cost_pareto</TD></TR></TABLE>> color="#eed867" fillcolor="#eed867" id=6 ordering=in shape=box tooltip="\"Corrects the pareto points.\""]
+	7 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">reduction_tech_cost_params</TD></TR><TR><TD align="RIGHT" border="1">default</TD><TD align="LEFT" border="1">None</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=7 shape=box style="rounded,filled" tooltip="\"Configuration parameters for reduction cost curves.\""]
+	8 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">reduction_tech_cost_pareto</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=8 shape=box style="rounded,filled" tooltip="\"Corrected technology combinations that maximize the reduction         minimizing the implementation cost.\""]
+	9 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2" href="./Cost_Curve_Model/identify_optimal_pareto.html">identify_optimal_pareto</TD></TR></TABLE>> color="#eed867" fillcolor="#eed867" id=9 ordering=in shape=box tooltip="\"Identifies the optimal pareto front of technology combinations that maximize     the reduction minimizing the implementation cost.\""]
+	10 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">optimal_pareto</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=10 shape=box style="rounded,filled" tooltip="\"Optimal pareto front of technology combinations that maximize the CO2         reduction minimizing the implementation cost.\""]
+	11 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2" href="./Cost_Curve_Model/calculate_reduction_tech_cost_params.html">calculate_reduction_tech_cost_params</TD></TR></TABLE>> color="#eed867" fillcolor="#eed867" id=11 ordering=in shape=box tooltip="\"Fits the parameters of reduction/Cost curves.\""]
+	12 [label=<<TABLE border="0" cellspacing="0" color="black"><TR><TD border="0" colspan="2">reduction_tech_cost_curves</TD></TR></TABLE>> color="#73c4fa" fillcolor="#73c4fa" id=12 shape=box style="rounded,filled" tooltip="\"Parameters of reduction/Cost curves.\""]
+	0 -> 5
+	1 -> 0
+	2 -> 0
+	3 -> 0
+	4 -> 0
+	4 -> 9
+	4 -> 11
+	5 -> 6
+	6 -> 8
+	7 -> 6
+	7 -> 11
+	8 -> 9
+	8 -> 11
+	9 -> 10
+	10 -> 11
+	11 -> 12
+}

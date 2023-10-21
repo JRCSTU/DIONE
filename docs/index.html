@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>DIONE: &mdash; dione 0.0.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. What is DIONE?" href="doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> dione
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">1. What is DIONE?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">2. Input Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">3. Cost Curve Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="change.html">4. Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">dione</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>DIONE:</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="dione">
+<h1>DIONE:<a class="headerlink" href="#dione" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://joinup.ec.europa.eu/software/page/eupl"><img alt="Project License" src="https://img.shields.io/badge/license-EUPL%201.1%2B-blue.svg?" /></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">release<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0.0.8</p>
+</dd>
+<dt class="field-even">date<span class="colon">:</span></dt>
+<dd class="field-even"><p>2023-09-18 10:00:00</p>
+</dd>
+<dt class="field-odd">repository<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://code.europa.eu/dione/dione-cost-curves">https://code.europa.eu/dione/dione-cost-curves</a></p>
+</dd>
+<dt class="field-even">docs<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://jrcstu.github.io/DIONE/">https://jrcstu.github.io/DIONE/</a></p>
+</dd>
+<dt class="field-odd">website<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://dione.jrc.ec.europa.eu/">https://dione.jrc.ec.europa.eu/</a></p>
+</dd>
+<dt class="field-even">keywords<span class="colon">:</span></dt>
+<dd class="field-even"><p>fuel consumption, fleet, forecast</p>
+</dd>
+<dt class="field-odd">license<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://joinup.ec.europa.eu/software/page/eupl">EUPL 1.1+</a></p>
+</dd>
+<dt class="field-even">mail box<span class="colon">:</span></dt>
+<dd class="field-even"><p>DIONE Team: &lt;<a class="reference external" href="mailto:JRC-LDVS-CO2&#37;&#52;&#48;ec&#46;europa&#46;eu">JRC-LDVS-CO2<span>&#64;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p>
+</dd>
+<dt class="field-odd">team<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>DIONE:</dt><dd><ul class="simple">
+<li><p>Vincenzo Arcidiacono &lt;<a class="reference external" href="mailto:vincenzo&#46;arcidiacono&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">vincenzo<span>&#46;</span>arcidiacono<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+<li><p>Jette Krause &lt;<a class="reference external" href="mailto:jette&#46;krause&#37;&#52;&#48;ec&#46;europa&#46;eu">jette<span>&#46;</span>krause<span>&#64;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+<li><p>Lorenzo Maineri &lt;<a class="reference external" href="mailto:lorenzo&#46;maineri&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">lorenzo<span>&#46;</span>maineri<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+</ul>
+</dd>
+<dt>Documentation:</dt><dd><ul class="simple">
+<li><p>Vincenzo Arcidiacono &lt;<a class="reference external" href="mailto:vincenzo&#46;arcidiacono&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">vincenzo<span>&#46;</span>arcidiacono<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+<li><p>Francesca Saporiti &lt;<a class="reference external" href="mailto:francesca&#46;saporiti&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">francesca<span>&#46;</span>saporiti<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+</ul>
+</dd>
+<dt>Supervision:</dt><dd><ul class="simple">
+<li><p>Georgios Fontaras &lt;<a class="reference external" href="mailto:georgios&#46;fontaras&#37;&#52;&#48;ec&#46;europa&#46;eu">georgios<span>&#46;</span>fontaras<span>&#64;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+<li><p>Athina Mitsiara &lt;<a class="reference external" href="mailto:athina&#46;mitsiara&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">athina<span>&#46;</span>mitsiara<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+</ul>
+</dd>
+<dt>Tester:</dt><dd><ul class="simple">
+<li><p>Vincenzo Arcidiacono &lt;<a class="reference external" href="mailto:vincenzo&#46;arcidiacono&#37;&#52;&#48;ext&#46;ec&#46;europa&#46;eu">vincenzo<span>&#46;</span>arcidiacono<span>&#64;</span>ext<span>&#46;</span>ec<span>&#46;</span>europa<span>&#46;</span>eu</a>&gt;</p></li>
+</ul>
+</dd>
+<dt>Past Contributors:</dt><dd><ul class="simple">
+<li><p>Juliette Le Corguille</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="what-is-dione">
+<span id="start-intro"></span><span id="start-pypi"></span><h2>What is DIONE?<a class="headerlink" href="#what-is-dione" title="Permalink to this heading">¶</a></h2>
+<p>DIONE is a model that the European Commission’s Joint Research Centre (JRC) has
+been developing since 2014 to support EU transport emission reduction policies.
+It is presently employed to support road
+vehicle CO<sub>2</sub> emissions standards within the EU’s Green Deal. It also
+supports the European Strategy for Low-Emission Mobility.
+The DIONE cost curve model develops CO<sub>2</sub> reduction cost curves, applying an
+optimisation technique, which provides cost estimates associated with reaching a
+given CO<sub>2</sub> reduction for different road vehicle segments and powertrains.
+The JRC has now opened access to this model, and this user manual explains how
+to operate it.</p>
+<div class="toctree-wrapper compound" id="mastertoc">
+<p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">1. What is DIONE?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">2. Input Template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">3. Cost Curve Definition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="model.html#identifying-optimal-technology-packages">3.1. Identifying Optimal Technology Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#parameter-transformation">3.2. Parameter Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#optimal-pareto-front">3.3. Optimal Pareto Front</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#fitting-cost-curves">3.4. Fitting Cost Curves</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="change.html">4. Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="change.html#unreleased">4.1. (unreleased)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#feat">4.1.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#fix">4.1.2. Fix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-8-2023-09-18">4.2. v0.0.8 (2023-09-18)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id1">4.2.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id2">4.2.2. Fix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#other">4.2.3. Other</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-7-2022-08-03">4.3. v0.0.7 (2022-08-03)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id3">4.3.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id4">4.3.2. Fix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id5">4.3.3. Other</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-6-2022-02-14">4.4. v0.0.6 (2022-02-14)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id6">4.4.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id7">4.4.2. Fix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-5-2021-12-09">4.5. v0.0.5 (2021-12-09)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id8">4.5.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id9">4.5.2. Fix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-4-2021-12-03">4.6. v0.0.4 (2021-12-03)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id10">4.6.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id11">4.6.2. Fix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-2-2020-11-04">4.7. v0.0.2 (2020-11-04)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id12">4.7.1. Feat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id13">4.7.2. Fix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="change.html#v0-0-1-2020-10-28">4.8. v0.0.1 (2020-10-28)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="change.html#id14">4.8.1. Feat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="doc.html" class="btn btn-neutral float-right" title="1. What is DIONE?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright 2021-2023 European Commission (JRC).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

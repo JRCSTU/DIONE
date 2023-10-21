@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. Cost Curve Definition &mdash; dione 0.0.8 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Changelog" href="change.html" />
+    <link rel="prev" title="2. Input Template" href="guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dione
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="doc.html">1. What is DIONE?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">2. Input Template</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Cost Curve Definition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#identifying-optimal-technology-packages">3.1. Identifying Optimal Technology Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter-transformation">3.2. Parameter Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimal-pareto-front">3.3. Optimal Pareto Front</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fitting-cost-curves">3.4. Fitting Cost Curves</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="change.html">4. Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dione</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Cost Curve Definition</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="cost-curve-definition">
+<h1><span class="section-number">3. </span>Cost Curve Definition<a class="headerlink" href="#cost-curve-definition" title="Permalink to this heading">¶</a></h1>
+<p>As a model input, technologies, that can reduce road vehicle CO<sub>2</sub> emission or
+energy consumption, need to be identified and their reduction potentials
+and costs need to be quantified.</p>
+<p>Starting from this data, JRC’s DIONE cost curve model develops CO<sub>2</sub> or energy
+reduction cost curves, which describe the mathematical relationship between
+reduction potentials and related costs for different powertrains and vehicle
+segments. Depending on the powertrains and types of fuel or energy used by the
+vehicle, the cost curves can represent the costs of reducing of conventional
+energy consumption (liquid or gaseous fuels), or the total energy consumption,
+including also electric energy. This two types of cost curves are explained
+in detail in the DIONE model v2 report available on the website.</p>
+<p>Likewise, the complete model description and mathematical documentation of the
+operations carried out can be found in the report, whereas instructions on how
+to use the model are provided below.</p>
+<p>The diagram below shows the procedural steps that the tool is performing.</p>
+<iframe src="_images/dispatcher-275b782165120950ccf8b41a78fd11e0c8c08461/index.html" width="100%" height="600px" frameborder="0" allowfullscreen></iframe><p>In the first step, optimization is carried out to
+identify cost-optimal packages of CO<sub>2</sub> or energy reduction technologies. Then,
+several transformation steps are applied to transform the solutions found.
+Finally, a cost curve is fitted to the set of solutions. These steps are carried
+out by the DIONE model one after another, given that a suitable input data is
+provided to execute them.</p>
+<section id="identifying-optimal-technology-packages">
+<h2><span class="section-number">3.1. </span>Identifying Optimal Technology Packages<a class="headerlink" href="#identifying-optimal-technology-packages" title="Permalink to this heading">¶</a></h2>
+<p>The aim of this first step is to identify cost-optimal technology packages to
+reduce CO<sub>2</sub> emission as well as energy consumption. Given the set of available
+reduction technologies, the challenge consists in finding, among all feasible
+packages (i.e., combinations of compatible technologies or subsets of them)
+the set of optimal configurations with minimal total costs and maximum total
+reduction.</p>
+<p>This step uses the input data in sheets “reduction_tech_cost”,
+“incompatibility_tech”, and “include_exclude_tech”. Firstly, the list of
+technologies available has to be provided along with their reduction potentials;
+secondly it has to be filled with information on which technologies are not
+mutually compatible, and thirdly it can be used to enforce or exclude some of
+the technologies for given constellations if required.</p>
+<p>The large amount of possible optimization problems and combinations of
+technologies makes the problem computationally difficult. Moreover, available
+technologies are not always compatible, i.e., not all technologies can be
+combined with each other. For example, various engine downsizing technologies
+are available, but there is no package containing more than one, which means a
+simple combinatorial approach cannot be applied.</p>
+<p>The DIONE cost curve model applies a multi-objective optimization algorithm to
+solve the problem efficiently and make the algorithm adaptable to the changes in
+input parameters. While, the algorithm to solve the optimization problem is a
+hybrid system that uses brute force optimization when there are less than ten
+technologies. Otherwise, it uses a Non-dominated Sorting Genetic Algorithm
+(i.e., <cite>NSGA-II</cite> implemented by the library <cite>pymoo</cite>) with a default termination
+criteria. This approach is both fast, about 20 seconds each optimization, and
+light, 200Mb of RAM per optimization process, making the code suitable to a
+normal personal computer.</p>
+</section>
+<section id="parameter-transformation">
+<h2><span class="section-number">3.2. </span>Parameter Transformation<a class="headerlink" href="#parameter-transformation" title="Permalink to this heading">¶</a></h2>
+<p>Once a set of Pareto-optimal technology packages has been found for a given
+year (i.e powertrain, vehicle segment, and cost scenario), some adjustments are
+made to each point. These transformations are needed for:</p>
+<ol class="arabic simple">
+<li><p>Baseline adjustment: accounting for technologies that are already deployed in
+the reference year,</p></li>
+<li><p>Scaling for batteries: handling battery cost (or H<sub>2</sub> storage cost) savings
+for <cite>xEV</cite>,</p></li>
+<li><p>Scaling for overlapping technologies: avoiding that potentials covered by
+different technologies are double-counted, and</p></li>
+<li><p>Re-baseline <cite>xEV</cite>: setting <cite>xEV</cite> energy and CO<sub>2</sub> savings relative to
+reference year conventional vehicles.</p></li>
+</ol>
+<p>These steps and their relative algorithms are described in a previous
+<a class="reference external" href="https://ec.europa.eu/clima/system/files/2017-11/ldv_co2_technologies_and_costs_to_2030_en.pdf">report</a>.</p>
+<p>Parameters for each of the post-processing steps should to be provided in the
+input file tab “reduction_tech_cost_params”.</p>
+<p>The cost and reduction parameters of the post-processed technology bundles form
+the raw Pareto front. They are an output of the model, visible in the
+output file tab “reduction_tech_cost_pareto”.</p>
+</section>
+<section id="optimal-pareto-front">
+<h2><span class="section-number">3.3. </span>Optimal Pareto Front<a class="headerlink" href="#optimal-pareto-front" title="Permalink to this heading">¶</a></h2>
+<p>The raw Pareto cloud/front found in the previous step indicates the best
+technology combinations at the vehicle level. However, it is not the optimal
+solution used at the fleet level.</p>
+<p>A reasonable solution to reduce technology cost is a linear combination of two
+technology packages for cost curves used at the fleet level. Hence, the optimal
+Pareto front (the optimal packages’ distribution) is defined in a discrete form
+by a series of segments.</p>
+<p>The <cite>convex hull</cite> algorithm implemented by the <cite>scipy</cite> library is used for
+finding the optimal points that define the linear front from the raw Pareto
+cloud.</p>
+<p>In the output file, the solutions forming the optimal Pareto front are marked as
+“optimal” in the output file tab “reduction_tech_cost_pareto”.</p>
+</section>
+<section id="fitting-cost-curves">
+<h2><span class="section-number">3.4. </span>Fitting Cost Curves<a class="headerlink" href="#fitting-cost-curves" title="Permalink to this heading">¶</a></h2>
+<p>A continuous analytical form of the cost curves can be fitted based on the raw
+Pareto cloud or the optimal Pareto front. The functional form of the cost curves
+is the following:</p>
+<div class="math notranslate nohighlight">
+\[y = Ax^2 + Bx + C + \frac{c}{x-x0}\]</div>
+<p>where <cite>A</cite>, <cite>B</cite>, <cite>C</cite>, <cite>c</cite>, and <cite>x0</cite> are the unknown parameters to be fitted, and
+<cite>y</cite> and <cite>x</cite> represent the implementation technology cost and the relative energy
+reduction.</p>
+<p>The DIONE model allows fixing some or all unknown parameters and defines cost
+curves distinguished by their fitting methods. The curves are:</p>
+<ol class="arabic simple">
+<li><p><cite>cloud cost curve</cite>: fitted using the raw Pareto cloud, and</p></li>
+<li><p><cite>optimal cost curve</cite>: fitted using 1000 equally distributed points of the
+optimal Pareto front.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <cite>optimal cost curve</cite> is more stable because the raw Pareto cloud
+does not influence it.</p>
+</div>
+<p>Cost curve fitting parameters are the final output of the DIONE cost curve
+model. They can be found in the tab “reduction_tech_cost_curves” of the output
+file.</p>
+<p>The fitting algorithm used for fitting the parameters of the curves is an
+adaptive multi-step algorithm that uses:</p>
+<ol class="arabic simple">
+<li><p>the Nelder method to solve non-linear least squares problem fixing
+<span class="math notranslate nohighlight">\(x0=1\)</span> and using all other parameters equal to zero as initial guess,</p></li>
+<li><p>the Nelder method using the previous solution as initial guess,</p></li>
+<li><p>the Least-Squares minimization, using Trust Region Reflective method and the
+previous solution as initial guess.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="change.html" class="btn btn-neutral float-right" title="4. Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="guide.html" class="btn btn-neutral float-left" title="2. Input Template" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright 2021-2023 European Commission (JRC).
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

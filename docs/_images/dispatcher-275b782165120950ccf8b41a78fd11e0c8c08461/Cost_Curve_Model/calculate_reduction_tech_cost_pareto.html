@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        svg.on {
+            border: 4px solid #008CFF;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child path:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child polygon:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        @keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        @-webkit-keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        .controls {
+            background: #343a40;
+            width: 100%;
+        }
+
+        .controls button {
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #BBBBBB;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+
+        .controls button:hover {
+            background-color: #555;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+        }
+
+        #iframe {
+            flex-grow: 1;
+        }
+
+        #index {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sh-ico {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-left: 8px;
+            padding-top: 3px;
+            vertical-align: middle;
+            content: "";
+            background: no-repeat center center;
+            background-size: 100% 100%;
+        }
+
+        .sh-ico-compress {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3'/%3E%3C/svg%3E");
+        }
+
+        .sh-ico-expand {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'/%3E%3C/svg%3E");
+        }
+    </style>
+    <!-- Required Javascript -->
+    
+    
+</head>
+<body onload="_onload()">
+<div id="index" style="display: none; height: 100%">
+    <div class="controls">
+        <button id="btnFullScreen" class="sh-ico sh-ico-expand"
+                style="display: none"
+                onclick="FullScreen()"
+                title="Enter/Exit Full Screen">
+        </button>
+        <button id="btnBack" onclick="onBack(event)" title="Go back">
+            &lt;
+        </button>
+        <button id="btnForward" onclick="onForward(event)" title="Go forward">
+            &gt;
+        </button>
+    </div>
+    <iframe id="iframe" allowfullscreen frameborder="0"></iframe>
+</div>
+<div id="content" style="background: white; display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, <span style="color: #008000; font-weight: bold">True</span>, <span style="color: #008000; font-weight: bold">True</span>, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&#39;reduction_tech_cost_pareto_raw&#39;</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">calculate_reduction_tech_cost_pareto</span>(
+        reduction_tech_cost, incompatibility_tech, include_exclude_tech<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">None</span>,
+        executor<span style="color: #666666">=</span>DummyExecutor()):
+<span style="color: #bbbbbb">    </span><span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Finds the best technology combinations that maximize the reduction</span>
+<span style="color: #BA2121; font-style: italic">    minimizing the implementation cost.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param reduction_tech_cost:</span>
+<span style="color: #BA2121; font-style: italic">        List of technology reduction and implementation cost for each</span>
+<span style="color: #BA2121; font-style: italic">        powertrain, segment, and registration_year year.</span>
+<span style="color: #BA2121; font-style: italic">    :type reduction_tech_cost: pandas.Dataframe</span>
+
+<span style="color: #BA2121; font-style: italic">    :param incompatibility_tech:</span>
+<span style="color: #BA2121; font-style: italic">        Matrix of incompatible technologies.</span>
+<span style="color: #BA2121; font-style: italic">    :param incompatibility_tech: pandas.Dataframe</span>
+
+<span style="color: #BA2121; font-style: italic">    :param include_exclude_tech:</span>
+<span style="color: #BA2121; font-style: italic">        List of technologies to be included (forced) or excluded from the</span>
+<span style="color: #BA2121; font-style: italic">        optimization process defined for each powertrain, segment, and</span>
+<span style="color: #BA2121; font-style: italic">        registration_year year.</span>
+<span style="color: #BA2121; font-style: italic">    :type include_exclude_tech: pandas.Dataframe</span>
+
+<span style="color: #BA2121; font-style: italic">    :param executor:</span>
+<span style="color: #BA2121; font-style: italic">        Parallel executor.</span>
+<span style="color: #BA2121; font-style: italic">    :type executor: schedula.utils.asy.executors.Executor</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Best technology combinations that maximize the reduction minimizing</span>
+<span style="color: #BA2121; font-style: italic">        the implementation cost.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: pandas.Dataframe</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
+    <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sklearn.preprocessing</span> <span style="color: #008000; font-weight: bold">import</span> MaxAbsScaler
+    keys <span style="color: #666666">=</span> [<span style="color: #BA2121">&#39;powertrain&#39;</span>, <span style="color: #BA2121">&#39;segment&#39;</span>, <span style="color: #BA2121">&#39;registration_year&#39;</span>, <span style="color: #BA2121">&#39;cost_type&#39;</span>]
+    keys_df <span style="color: #666666">=</span> [<span style="color: #BA2121">&#39;conventional&#39;</span>, <span style="color: #BA2121">&#39;energy&#39;</span>, <span style="color: #BA2121">&#39;cost&#39;</span>]
+    cases <span style="color: #666666">=</span> _define_cases(reduction_tech_cost, include_exclude_tech)
+    cases[keys_df[:<span style="color: #666666">-1</span>]] <span style="color: #666666">=</span> <span style="color: #666666">1</span> <span style="color: #666666">-</span> cases[keys_df[:<span style="color: #666666">-1</span>]]
+    res <span style="color: #666666">=</span> []
+    it <span style="color: #666666">=</span> tqdm<span style="color: #666666">.</span>tqdm(
+        cases<span style="color: #666666">.</span>groupby(keys), desc<span style="color: #666666">=</span><span style="color: #BA2121">&quot;load reduction_tech_cost_pareto_raw&quot;</span>
+    )
+    <span style="color: #008000; font-weight: bold">for</span> k, data <span style="color: #AA22FF; font-weight: bold">in</span> it:
+        b <span style="color: #666666">=</span> data[<span style="color: #BA2121">&#39;vary&#39;</span>]<span style="color: #666666">.</span>values
+        df <span style="color: #666666">=</span> data<span style="color: #666666">.</span>loc[b, keys_df]
+        df <span style="color: #666666">=</span> df[<span style="color: #666666">~</span>((df[keys_df[:<span style="color: #666666">-1</span>]] <span style="color: #666666">==</span> <span style="color: #666666">1</span>)<span style="color: #666666">.</span>all(axis<span style="color: #666666">=1</span>) <span style="color: #666666">&amp;</span> (df[<span style="color: #BA2121">&#39;cost&#39;</span>] <span style="color: #666666">==</span> <span style="color: #666666">0</span>))] \
+            <span style="color: #666666">.</span>sort_values(keys_df, ascending<span style="color: #666666">=</span>(<span style="color: #008000; font-weight: bold">False</span>, <span style="color: #008000; font-weight: bold">False</span>, <span style="color: #008000; font-weight: bold">True</span>))
+        i <span style="color: #666666">=</span> np<span style="color: #666666">.</span>where((df[keys_df[:<span style="color: #666666">-1</span>]] <span style="color: #666666">==</span> <span style="color: #666666">1</span>)<span style="color: #666666">.</span>all(axis<span style="color: #666666">=1</span>))[<span style="color: #666666">0</span>]
+        <span style="color: #008000; font-weight: bold">if</span> i<span style="color: #666666">.</span>size <span style="color: #666666">&gt;</span> <span style="color: #666666">1</span>:
+            df<span style="color: #666666">.</span>iloc[i[<span style="color: #666666">1</span>:], :] <span style="color: #666666">=</span> np<span style="color: #666666">.</span>nan
+            df<span style="color: #666666">.</span>dropna(inplace<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+        tech_names <span style="color: #666666">=</span> df<span style="color: #666666">.</span>index<span style="color: #666666">.</span>get_level_values(<span style="color: #BA2121">&#39;technology&#39;</span>)<span style="color: #666666">.</span>values
+        reduction_tech_cost <span style="color: #666666">=</span> df[keys_df]<span style="color: #666666">.</span>values
+        scl <span style="color: #666666">=</span> MaxAbsScaler()
+        reduction_tech_cost[:, <span style="color: #666666">-1</span>] <span style="color: #666666">=</span> scl<span style="color: #666666">.</span>fit_transform(
+            reduction_tech_cost[:, [<span style="color: #666666">-1</span>]]
+        )<span style="color: #666666">.</span>ravel()
+        incompatibilities <span style="color: #666666">=</span> _tech2num(tech_names, incompatibility_tech)
+        b <span style="color: #666666">=</span> <span style="color: #666666">~</span>b
+        cb, rb, base_techs <span style="color: #666666">=</span> <span style="color: #666666">0</span>, np<span style="color: #666666">.</span>array([<span style="color: #666666">1</span>, <span style="color: #666666">1</span>]), []
+        <span style="color: #008000; font-weight: bold">if</span> b<span style="color: #666666">.</span>any():
+            df <span style="color: #666666">=</span> data<span style="color: #666666">.</span>loc[b, keys_df]
+            base_techs<span style="color: #666666">.</span>extend(df<span style="color: #666666">.</span>index<span style="color: #666666">.</span>get_level_values(<span style="color: #BA2121">&#39;technology&#39;</span>)<span style="color: #666666">.</span>values)
+            cb <span style="color: #666666">=</span> df[<span style="color: #BA2121">&#39;cost&#39;</span>]<span style="color: #666666">.</span>sum()
+            rb <span style="color: #666666">=</span> np<span style="color: #666666">.</span>prod(df[keys_df[:<span style="color: #666666">-1</span>]]<span style="color: #666666">.</span>values, axis<span style="color: #666666">=0</span>)
+        res<span style="color: #666666">.</span>append((k, base_techs, tech_names, cb, rb, scl, executor<span style="color: #666666">.</span>submit(
+            _pareto_process, reduction_tech_cost, incompatibilities
+        )))
+    dfs <span style="color: #666666">=</span> []
+    it <span style="color: #666666">=</span> tqdm<span style="color: #666666">.</span>tqdm(res, desc<span style="color: #666666">=</span><span style="color: #BA2121">&quot;reduction_tech_cost_pareto_raw&quot;</span>)
+    <span style="color: #008000; font-weight: bold">for</span> k, base_techs, tech_names, cb, rb, scl, fut <span style="color: #AA22FF; font-weight: bold">in</span> it:
+        rc, comb <span style="color: #666666">=</span> sh<span style="color: #666666">.</span>await_result(fut)
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #AA22FF; font-weight: bold">not</span> rc<span style="color: #666666">.</span>flags<span style="color: #666666">.</span>writeable:
+            rc <span style="color: #666666">=</span> np<span style="color: #666666">.</span>copy(rc)
+        rc[:, <span style="color: #666666">-1</span>] <span style="color: #666666">=</span> scl<span style="color: #666666">.</span>inverse_transform(rc[:, [<span style="color: #666666">-1</span>]])<span style="color: #666666">.</span>ravel()
+        i <span style="color: #666666">=</span> <span style="color: #008000">list</span>(<span style="color: #008000">map</span>(<span style="color: #008000">tuple</span>, rc[:, [<span style="color: #666666">0</span>, <span style="color: #666666">1</span>]]))
+        i <span style="color: #666666">=</span> i<span style="color: #666666">.</span>index(<span style="color: #008000">max</span>(i))
+        <span style="color: #008000; font-weight: bold">if</span> (rc[i, <span style="color: #666666">0</span>] <span style="color: #666666">&lt;</span> <span style="color: #666666">1</span> <span style="color: #AA22FF; font-weight: bold">or</span> rc[i, <span style="color: #666666">1</span>] <span style="color: #666666">&lt;</span> <span style="color: #666666">1</span>) <span style="color: #AA22FF; font-weight: bold">and</span> rc[i, <span style="color: #666666">-1</span>] <span style="color: #666666">&lt;=</span> <span style="color: #666666">0</span>:
+            rc <span style="color: #666666">=</span> np<span style="color: #666666">.</span>append([[<span style="color: #666666">1</span>, <span style="color: #666666">1</span>, <span style="color: #666666">0</span>]], rc, axis<span style="color: #666666">=0</span>)
+            comb <span style="color: #666666">=</span> np<span style="color: #666666">.</span>append([np<span style="color: #666666">.</span>zeros_like(comb[<span style="color: #666666">0</span>, :])], comb, axis<span style="color: #666666">=0</span>)
+        <span style="color: #008000; font-weight: bold">if</span> base_techs:
+            rc[:, <span style="color: #666666">-1</span>] <span style="color: #666666">+=</span> cb
+            rc[:, [<span style="color: #666666">0</span>, <span style="color: #666666">1</span>]] <span style="color: #666666">*=</span> rb
+        rc[:, [<span style="color: #666666">0</span>, <span style="color: #666666">1</span>]] <span style="color: #666666">=</span> <span style="color: #666666">1</span> <span style="color: #666666">-</span> rc[:, [<span style="color: #666666">0</span>, <span style="color: #666666">1</span>]]
+        df <span style="color: #666666">=</span> pd<span style="color: #666666">.</span>DataFrame(rc, columns<span style="color: #666666">=</span>keys_df)
+        df[<span style="color: #BA2121">&#39;technologies&#39;</span>] <span style="color: #666666">=</span> [
+            <span style="color: #BA2121">&#39;[</span><span style="color: #A45A77; font-weight: bold">%s</span><span style="color: #BA2121">]&#39;</span> <span style="color: #666666">%</span> <span style="color: #BA2121">&#39;;&#39;</span><span style="color: #666666">.</span>join(<span style="color: #008000">sorted</span>(base_techs <span style="color: #666666">+</span> tech_names[x]<span style="color: #666666">.</span>tolist()))
+            <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> comb
+        ]
+        df<span style="color: #666666">.</span>drop_duplicates(inplace<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+        df<span style="color: #666666">.</span>sort_values(keys_df[:<span style="color: #666666">-1</span>], inplace<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+        <span style="color: #008000; font-weight: bold">for</span> i, j <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">zip</span>(keys, k):
+            df[i] <span style="color: #666666">=</span> j
+        dfs<span style="color: #666666">.</span>append(df)
+    <span style="color: #008000; font-weight: bold">del</span> res
+    df <span style="color: #666666">=</span> pd<span style="color: #666666">.</span>concat(dfs, axis<span style="color: #666666">=0</span>)
+    df<span style="color: #666666">.</span>set_index(keys <span style="color: #666666">+</span> [<span style="color: #BA2121">&#39;technologies&#39;</span>], inplace<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+    <span style="color: #008000; font-weight: bold">return</span> df
+</pre></div>
+</div>
+
+<script>
+    var id, hist = {i: -1, list: []}, isFull;
+
+    function FullScreen() {
+        var el = document.getElementById("btnFullScreen");
+        if (isFull) {
+            closeFullscreen();
+            isFull = false;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-compress", "sh-ico-expand"));
+        } else {
+            openFullscreen();
+            isFull = true;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-expand", "sh-ico-compress"));
+        }
+    }
+
+    function getURLParam(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return decodeURI(results[1]) || 0;
+        }
+    }
+
+    function setURLParam(key, value) {
+        let uri = window.location.href,
+            re = new RegExp("([?&])" + key + "=.*?(&|$)", "i"),
+            separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + encodeURI(value) + '$2');
+        } else {
+            return uri + separator + key + "=" + encodeURI(value);
+        }
+    }
+
+    function iframeLoad(e) {
+        e.preventDefault();
+        document.getElementById("iframe").contentWindow.postMessage({
+            id: id,
+            action: 'id'
+        }, '*');
+    }
+
+    function onBack(e) {
+        e.preventDefault();
+        if (hist.i > 0) {
+            hist.i--;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function onForward(e) {
+        e.preventDefault();
+        if (hist.i + 1 < hist.list.length) {
+            hist.i++;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function setIframe(src) {
+        document.getElementById("iframe").src = src
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+
+    function isFullscreenSupported() {
+        let elem = document.body;
+        return elem.requestFullscreen || elem.mozRequestFullScreen || elem.webkitRequestFullscreen || elem.msRequestFullscreen
+    }
+
+    function openFullscreen() {
+        let elem = document.body;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen()
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen()
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen()
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen()
+        }
+    }
+
+    function _onload() {
+        if (getURLParam("controls") === "true") {
+            document.getElementById("iframe").onload = iframeLoad;
+            document.getElementById("index").style.display = "flex";
+            if (isFullscreenSupported())
+                document.getElementById("btnFullScreen").style.display = "inline-block";
+            id = Date.now();
+            setIframe(setURLParam("controls", "false"));
+            window.addEventListener('message', function (event) {
+                if (event.data.id === id) {
+                    if (event.data.action === 'url') {
+                        let href = event.data.url;
+                        if (hist.list[hist.i] !== href) {
+                            hist.i++;
+                            hist.list = hist.list.slice(0, hist.i);
+                            hist.list.push(href);
+                        }
+                        if (hist.i > 0) {
+                            document.getElementById("btnBack").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnBack").style.opacity = "0.5"
+                        }
+                        if (hist.i + 1 < hist.list.length) {
+                            document.getElementById("btnForward").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnForward").style.opacity = "0.5"
+                        }
+                    }
+                }
+            });
+        } else {
+            refreshIntervalId = setInterval(sendUrl, 100);
+            setTimeout(function () {
+                clearInterval(refreshIntervalId)
+            }, 30000);
+            document.getElementById("content").style.display = "block";
+            var el = document.getElementById(getURLParam("id") || 'graph0');
+            if (el)
+                if (el.getAttribute('class').indexOf('node') !== -1) {
+                    var bound = el.getBoundingClientRect();
+                    window.scrollTo((bound.left + bound.right) / 2 - document.body.offsetWidth / 2, (bound.top + bound.bottom) / 2 - document.body.offsetHeight / 2);
+                    el.setAttribute('class', el.getAttribute('class') + " on");
+                } else if (el.getAttribute('class').indexOf('graph') !== -1) {
+                    el.parentNode.setAttribute('class', el.parentNode.getAttribute('class') + " on");
+                }
+        }
+        let parser = new DOMParser();
+        for (let e of document.getElementsByTagName('viz')) {
+            let out, digraph = e.getAttribute('digraph'), options = {
+                engine: e.getAttribute('engine') || 'dot',
+                format: "svg"
+            };
+            try {
+                out = parser.parseFromString(Viz(digraph, options), "image/svg+xml").documentElement;
+            } catch (e) {
+                out = document.createElement('div')
+                out.setAttribute('class', 'viz error')
+                out.innerHTML = e.message === undefined ? "An error occurred while processing the graph input." : e.message;
+            }
+            e.appendChild(out);
+        }
+    }
+
+    function getParentOrigin() {
+        try {
+            return parent.window.origin || "null";
+        } catch (exception) {
+            return "null"
+        }
+    }
+
+    function sendUrl() {
+        if (parent_iframe_id !== null && window.location.href !== url) {
+            url = window.location.href;
+            parent.postMessage({
+                id: parent_iframe_id,
+                url: url,
+                action: 'url'
+            }, '*');
+            clearInterval(refreshIntervalId);
+        }
+    }
+
+    var parent_iframe_id = null, url = null, refreshIntervalId;
+    window.addEventListener('message', function (event) {
+        var origin = event.origin === 'file:' ? 'null' : (event.origin || 'null');
+        if (origin === getParentOrigin())
+            if (parent_iframe_id === null && event.data.action === 'id') {
+                parent_iframe_id = event.data.id
+            }
+    });
+</script>
+</body>
+</html>
